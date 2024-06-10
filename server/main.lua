@@ -173,6 +173,12 @@ local function AddItem(source, item, amount, slot, info, created)
 			Player.Functions.SetPlayerData("items", Player.PlayerData.items)
 			if Player.Offline then return true end
 			TriggerEvent('qb-log:server:CreateLog', 'playerinventory', 'AddItem', 'green', '**' .. GetPlayerName(source) .. ' (citizenid: ' .. Player.PlayerData.citizenid .. ' | id: ' .. source .. ')** got item: [slot:' .. slot .. '], itemname: ' .. Player.PlayerData.items[slot].name .. ', added amount: ' .. amount .. ', new total amount: ' .. Player.PlayerData.items[slot].amount)
+			
+			-- Added Code (highqez_cashitem)
+			if Player and Player.PlayerData and Player.PlayerData.source then
+				TriggerEvent('highqez_cashitem:server:AddItem', Player.PlayerData.source, item, amount)
+			end
+
 			return true
 			else
 				for i = 1, Config.MaxInventorySlots, 1 do
@@ -181,6 +187,12 @@ local function AddItem(source, item, amount, slot, info, created)
 						Player.Functions.SetPlayerData("items", Player.PlayerData.items)
 						if Player.Offline then return true end
 						TriggerEvent('qb-log:server:CreateLog', 'playerinventory', 'AddItem', 'green', '**' .. GetPlayerName(source) .. ' (citizenid: ' .. Player.PlayerData.citizenid .. ' | id: ' .. source .. ')** got item: [slot:' .. i .. '], itemname: ' .. Player.PlayerData.items[i].name .. ', added amount: ' .. amount .. ', new total amount: ' .. Player.PlayerData.items[i].amount)
+						
+						-- Added Code (highqez_cashitem)
+						if Player and Player.PlayerData and Player.PlayerData.source then
+							TriggerEvent('highqez_cashitem:server:AddItem', Player.PlayerData.source, item, amount)
+						end
+
 						return true
 					end
 				end
@@ -193,6 +205,11 @@ local function AddItem(source, item, amount, slot, info, created)
 
 			TriggerEvent('qb-log:server:CreateLog', 'playerinventory', 'AddItem', 'green', '**' .. GetPlayerName(source) .. ' (citizenid: ' .. Player.PlayerData.citizenid .. ' | id: ' .. source .. ')** got item: [slot:' .. slot .. '], itemname: ' .. Player.PlayerData.items[slot].name .. ', added amount: ' .. amount .. ', new total amount: ' .. Player.PlayerData.items[slot].amount)
 
+			-- Added Code (highqez_cashitem)
+			if Player and Player.PlayerData and Player.PlayerData.source then
+				TriggerEvent('highqez_cashitem:server:AddItem', Player.PlayerData.source, item, amount)
+			end
+
 			return true
 		elseif itemInfo['unique'] or (not slot or slot == nil) or itemInfo['type'] == 'weapon' then
 			for i = 1, Config.MaxInventorySlots, 1 do
@@ -203,6 +220,11 @@ local function AddItem(source, item, amount, slot, info, created)
 					if Player.Offline then return true end
 
 					TriggerEvent('qb-log:server:CreateLog', 'playerinventory', 'AddItem', 'green', '**' .. GetPlayerName(source) .. ' (citizenid: ' .. Player.PlayerData.citizenid .. ' | id: ' .. source .. ')** got item: [slot:' .. i .. '], itemname: ' .. Player.PlayerData.items[i].name .. ', added amount: ' .. amount .. ', new total amount: ' .. Player.PlayerData.items[i].amount)
+
+					-- Added Code (highqez_cashitem)
+					if Player and Player.PlayerData and Player.PlayerData.source then
+						TriggerEvent('highqez_cashitem:server:AddItem', Player.PlayerData.source, item, amount)
+					end
 
 					return true
 				end
@@ -235,6 +257,11 @@ local function RemoveItem(source, item, amount, slot)
 				TriggerEvent('qb-log:server:CreateLog', 'playerinventory', 'RemoveItem', 'red', '**' .. GetPlayerName(source) .. ' (citizenid: ' .. Player.PlayerData.citizenid .. ' | id: ' .. source .. ')** lost item: [slot:' .. slot .. '], itemname: ' .. Player.PlayerData.items[slot].name .. ', removed amount: ' .. amount .. ', new total amount: ' .. Player.PlayerData.items[slot].amount)
 			end
 
+			-- Added Code (highqez_cashitem)
+			if Player and Player.PlayerData and Player.PlayerData.source then
+				TriggerEvent('highqez_cashitem:server:RemoveItem', Player.PlayerData.source, item, amount)
+			end
+
 			return true
 		elseif Player.PlayerData.items[slot].amount == amount then
 			Player.PlayerData.items[slot] = nil
@@ -243,6 +270,11 @@ local function RemoveItem(source, item, amount, slot)
 			if Player.Offline then return true end
 
 			TriggerEvent('qb-log:server:CreateLog', 'playerinventory', 'RemoveItem', 'red', '**' .. GetPlayerName(source) .. ' (citizenid: ' .. Player.PlayerData.citizenid .. ' | id: ' .. source .. ')** lost item: [slot:' .. slot .. '], itemname: ' .. item .. ', removed amount: ' .. amount .. ', item removed')
+
+			-- Added Code (highqez_cashitem)
+			if Player and Player.PlayerData and Player.PlayerData.source then
+				TriggerEvent('highqez_cashitem:server:RemoveItem', Player.PlayerData.source, item, amount)
+			end
 
 			return true
 		end
@@ -261,6 +293,11 @@ local function RemoveItem(source, item, amount, slot)
 					TriggerEvent('qb-log:server:CreateLog', 'playerinventory', 'RemoveItem', 'red', '**' .. GetPlayerName(source) .. ' (citizenid: ' .. Player.PlayerData.citizenid .. ' | id: ' .. source .. ')** lost item: [slot:' .. _slot .. '], itemname: ' .. Player.PlayerData.items[_slot].name .. ', removed amount: ' .. amount .. ', new total amount: ' .. Player.PlayerData.items[_slot].amount)
 				end
 
+				-- Added Code (highqez_cashitem)
+				if Player and Player.PlayerData and Player.PlayerData.source then
+					TriggerEvent('highqez_cashitem:server:RemoveItem', Player.PlayerData.source, item, amount)
+				end
+
 				return true
 			elseif Player.PlayerData.items[_slot].amount == amountToRemove then
 				Player.PlayerData.items[_slot] = nil
@@ -269,6 +306,11 @@ local function RemoveItem(source, item, amount, slot)
 				if Player.Offline then return true end
 
 				TriggerEvent('qb-log:server:CreateLog', 'playerinventory', 'RemoveItem', 'red', '**' .. GetPlayerName(source) .. ' (citizenid: ' .. Player.PlayerData.citizenid .. ' | id: ' .. source .. ')** lost item: [slot:' .. _slot .. '], itemname: ' .. item .. ', removed amount: ' .. amount .. ', item removed')
+
+				-- Added Code (highqez_cashitem)
+				if Player and Player.PlayerData and Player.PlayerData.source then
+					TriggerEvent('highqez_cashitem:server:RemoveItem', Player.PlayerData.source, item, amount)
+				end
 
 				return true
 			end
@@ -346,6 +388,12 @@ local function ClearInventory(source, filterItems)
 	if Player.Offline then return end
 
 	TriggerEvent('qb-log:server:CreateLog', 'playerinventory', 'ClearInventory', 'red', '**' .. GetPlayerName(source) .. ' (citizenid: ' .. Player.PlayerData.citizenid .. ' | id: ' .. source .. ')** inventory cleared')
+
+	-- Added Code (highqez_cashitem)
+	if Player and Player.PlayerData and Player.PlayerData.source then
+		TriggerEvent('highqez_cashitem:server:ClearInventory', Player.PlayerData.source)
+	end
+
 end
 
 exports("ClearInventory", ClearInventory)
